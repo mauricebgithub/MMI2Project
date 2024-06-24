@@ -28,6 +28,7 @@ public class AirplaneController : MonoBehaviour
 
     float thrustPercent;
     float brakesTorque;
+    public float throttleSpeed = 0.8f;
 
     public Slider thrustSlider;
 
@@ -51,7 +52,8 @@ public class AirplaneController : MonoBehaviour
         Roll = Input.GetAxis("Horizontal");
         Yaw = Input.GetAxis("Yaw");
 
-
+        float throttleInput = Input.GetAxis("ThrottleInc"); // RT
+        float reverseThrottleInput = Input.GetAxis("ThrottleDec"); // LT
 
         //thrustPercent = thrustSlider.value;
         if (Input.GetKeyDown(KeyCode.Space))
@@ -73,6 +75,16 @@ public class AirplaneController : MonoBehaviour
         {
             brakesTorque = brakesTorque > 0 ? 0 : 100f;
         }
+
+        // Steuere die Throttle basierend auf den Trigger-Eingaben
+        float throttleChange = throttleInput - reverseThrottleInput; // Differenz zwischen RT und LT
+        thrustPercent += throttleChange  * throttleSpeed; // Anpassung der Throttle über die Zeit
+
+        // Begrenze thrustPercent auf den Bereich zwischen 0 und 1
+        thrustPercent = Mathf.Clamp01(thrustPercent);
+
+        //Debug.Log("ThrottleInc input: " + throttleInput);
+        //Debug.Log("ThrottleDec input: " + reverseThrottleInput);
 
         if (visibleControls)
         {

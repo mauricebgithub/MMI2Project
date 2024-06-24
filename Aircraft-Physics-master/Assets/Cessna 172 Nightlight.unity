@@ -1435,14 +1435,14 @@ MonoBehaviour:
     ROLL - Left Stick
     Horizontal or A/D
 
-    YAW - Triggers or Q/E
+    YAW - Q/E or RB/LB
 
     FLAPS TOGGLE - F
 
-    BRAKES
-    TOGGLE - B
+    BRAKES TOGGLE
+    - B
 
-    THROTTLE TOGGLE - Space'
+    THROTTLE TOGGLE - Space or RT/LT'
 --- !u!222 &542925209
 CanvasRenderer:
   m_ObjectHideFlags: 0
