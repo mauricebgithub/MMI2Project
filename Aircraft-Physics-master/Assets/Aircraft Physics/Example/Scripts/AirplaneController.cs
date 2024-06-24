@@ -15,6 +15,7 @@ public class AirplaneController : MonoBehaviour
     [SerializeField]
     float yawControlSensitivity = 0.2f;
 
+
     [Range(-1, 1)]
     public float Pitch;
     [Range(-1, 1)]
@@ -28,7 +29,7 @@ public class AirplaneController : MonoBehaviour
 
     float thrustPercent;
     float brakesTorque;
-    public float throttleSpeed = 0.8f;
+    public float throttleSpeed = 1.0f;
 
     public Slider thrustSlider;
 
@@ -78,7 +79,7 @@ public class AirplaneController : MonoBehaviour
 
         // Steuere die Throttle basierend auf den Trigger-Eingaben
         float throttleChange = throttleInput - reverseThrottleInput; // Differenz zwischen RT und LT
-        thrustPercent += throttleChange  * throttleSpeed; // Anpassung der Throttle über die Zeit
+        thrustPercent += throttleChange  * throttleSpeed; // Anpassung der Throttle 
 
         // Begrenze thrustPercent auf den Bereich zwischen 0 und 1
         thrustPercent = Mathf.Clamp01(thrustPercent);
