@@ -71,8 +71,16 @@ public class AirplaneController : MonoBehaviour
         {
             Flap = Flap > 0 ? 0 : 0.3f;
         }
+        if (Input.GetKeyDown(KeyCode.JoystickButton3))
+        {
+            Flap = Flap > 0 ? 0 : 0.3f;
+        }
 
         if (Input.GetKeyDown(KeyCode.B))
+        {
+            brakesTorque = brakesTorque > 0 ? 0 : 100f;
+        }
+        if (Input.GetKeyDown(KeyCode.JoystickButton1))
         {
             brakesTorque = brakesTorque > 0 ? 0 : 100f;
         }

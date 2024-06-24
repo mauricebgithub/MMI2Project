@@ -1437,10 +1437,10 @@ MonoBehaviour:
 
     YAW - Q/E or RB/LB
 
-    FLAPS TOGGLE - F
+    FLAPS TOGGLE - F/ControllerY
 
-    BRAKES TOGGLE
-    - B
+    BRAKES
+    TOGGLE - B
 
     THROTTLE TOGGLE - Space or RT/LT'
 --- !u!222 &542925209
@@ -2246,7 +2246,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0611292, y: -0.000000016917552, z: 0.000000001036094, w: 0.9981299}
+  m_LocalRotation: {x: 0.061129205, y: 0.000000018101966, z: -0.0000000011086321,
+    w: 0.9981299}
   m_LocalPosition: {x: 0, y: 6.18, z: -14.273}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2555,7 +2556,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188863487}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0611292, y: -0.000000016917552, z: 0.000000001036094, w: 0.9981299}
+  m_LocalRotation: {x: 0.061129205, y: 0.000000018101966, z: -0.0000000011086321,
+    w: 0.9981299}
   m_LocalPosition: {x: 0, y: 6.18, z: -14.273}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
