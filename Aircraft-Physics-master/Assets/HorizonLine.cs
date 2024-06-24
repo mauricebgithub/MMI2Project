@@ -5,15 +5,24 @@ using UnityEngine;
 public class HorizonLine : MonoBehaviour
 {
     public Transform AircraftTransform;
-    // Start is called before the first frame update
+    public float pitchSensitivity = 1.0f; // Sensitivity for the pitch adjustment
+    private Vector3 initialPosition;
+
     void Start()
     {
-        
+        initialPosition = this.transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Update rotation based on aircraft's rotation
         this.transform.rotation = new Quaternion(0f, 0f, AircraftTransform.rotation.z, AircraftTransform.rotation.w);
+
+        // Adjust position based on aircraft's pitch
+        float pitch = AircraftTransform.rotation.eulerAngles.x;
+        if (pitch > 180) pitch -= 360; // Normalize pitch to range -180 to 180
+
+        // Adjust the vertical position based on the pitch
+        this.transform.position = initialPosition + Vector3.up * pitch * pitchSensitivity;
     }
 }
