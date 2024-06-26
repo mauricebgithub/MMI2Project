@@ -17,7 +17,7 @@ public class AirplaneController : MonoBehaviour
     [SerializeField]
     float mouseSensetivity = 1.0f;
     [SerializeField]
-    float throttleSpeed = 1.0f;
+    float throttleSpeed = 0.1f;
 
     public enum ControlMode
     {
@@ -54,6 +54,9 @@ public class AirplaneController : MonoBehaviour
     public bool visibleControls = true;
     GameObject controlsDisplay;
 
+    private ControlMode lastControlMode;
+
+
     private void Start()
     {
         aircraftPhysics = GetComponent<AircraftPhysics>();
@@ -64,23 +67,23 @@ public class AirplaneController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        switch(controlMode){
-            case ControlMode.MouseControl:
-            contolHelpText.text = "CONTROLS:\n PITCH - Touchpad Vertical position\n ROLL - Touchpad Horizontal position\n FLAPS TOGGLE - F\n BRAKES TOGGLE - B\n THROTTLE TOGGLE - Space\n";
-            break;
-            case ControlMode.KeyboardControl:
-            contolHelpText.text = "\n CONTROLS\n: PITCH - W/S\n ROLL - A/D\n FLAPS TOGGLE - F\n BRAKES TOGGLE - B\n THROTTLE TOGGLE - Space ";
-            break;
-            case ControlMode.JoystickControl:
-            contolHelpText.text = "\n CONTROLS:\n PITCH - Left Stick Vertical\n ROLL - Left Stick Horizontal\n YAW - RB/LB\n FLAPS TOGGLE - ControllerY\n BRAKES TOGGLE - B\n THROTTLE TOGGLE - RT/LT\n ";
-            break;
-            
-        }
+
+        UpdateControlHelpText();
+        
         
     }
 
     private void Update()
     {
+
+        // Check if controlMode has changed
+        if (controlMode != lastControlMode)
+        {
+            UpdateControlHelpText();
+            lastControlMode = controlMode;
+        }
+
+
         switch (controlMode)
         {
             case ControlMode.MouseControl:
@@ -131,6 +134,7 @@ public class AirplaneController : MonoBehaviour
 
                 float throttleInput = Input.GetAxis("ThrottleInc"); // RT
                 float reverseThrottleInput = Input.GetAxis("ThrottleDec"); // LT
+                float throttleTest = Input.GetAxis("ThrottleTest");
 
                 //thrustPercent = thrustSlider.value;
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -153,14 +157,19 @@ public class AirplaneController : MonoBehaviour
                 }
 
                 // Steuere die Throttle basierend auf den Trigger-Eingaben
-                float throttleChange = throttleInput - reverseThrottleInput; // Differenz zwischen RT und LT
-                thrustPercent += throttleChange * throttleSpeed; // Anpassung der Throttle 
+                //float throttleChange = throttleInput - reverseThrottleInput; // Differenz zwischen RT und LT
+                float throttleChange = throttleTest;
+                thrustPercent += throttleChange * throttleSpeed * Time.deltaTime; // Anpassung der Throttle 
 
                 // Begrenze thrustPercent auf den Bereich zwischen 0 und 1
                 thrustPercent = Mathf.Clamp01(thrustPercent);
 
+
+
+                //Debugging Statements:
                 //Debug.Log("ThrottleInc input: " + throttleInput);
                 //Debug.Log("ThrottleDec input: " + reverseThrottleInput);
+                //Debug.Log("ThrottleTest input: " + throttleTest);
             break;
         }
 
@@ -243,6 +252,25 @@ public class AirplaneController : MonoBehaviour
         }
     }
 
+    private void UpdateControlHelpText()
+    {
+        switch (controlMode)
+        {
+            case ControlMode.MouseControl:
+                contolHelpText.text = "CONTROLS:\n PITCH - Touchpad Vertical position\n ROLL - Touchpad Horizontal position\n FLAPS TOGGLE - F\n BRAKES TOGGLE - B\n THROTTLE TOGGLE - Space\n";
+                break;
+            case ControlMode.KeyboardControl:
+                contolHelpText.text = "CONTROLS:\n PITCH - W/S\n ROLL - A/D\n FLAPS TOGGLE - F\n BRAKES TOGGLE - B\n THROTTLE TOGGLE - Space \n";
+                break;
+            case ControlMode.JoystickControl:
+                contolHelpText.text = "\nCONTROLS:\n PITCH - Left Stick Vertical\n ROLL - Left Stick Horizontal\n YAW - RB/LB\n FLAPS TOGGLE - ControllerY\n BRAKES TOGGLE - B\n THROTTLE TOGGLE - RT/LT\n ";
+                break;
+
+        }
+    }
+
+
+
     public float getVelocity()
     {
         return rb.velocity.magnitude;
@@ -252,4 +280,6 @@ public class AirplaneController : MonoBehaviour
     {
         return transform.position.y;
     }
+
+
 }
