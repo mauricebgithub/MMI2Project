@@ -5,6 +5,8 @@ using UnityEngine;
 public class ObstacleScript : MonoBehaviour
 {
     public float rotationSpeed = 10f;
+    public int nRings = 75;
+    public static int ringsHit = 0;
 
     private GameObject landingstrip;
 
@@ -22,7 +24,8 @@ public class ObstacleScript : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Obstacle hit!");
+        ringsHit++;
+        Debug.Log("Obstacle hit! Rings:" + ringsHit.ToString() + "/" + nRings.ToString());
 //        landingstrip.GetComponent<EvaluateFlight>().obstacleWasHit();
         this.GetComponent<MeshRenderer>().material= seeTrough;
         Destroy(this.GetComponent<MeshCollider>());
