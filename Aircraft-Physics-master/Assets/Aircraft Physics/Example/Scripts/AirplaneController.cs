@@ -114,6 +114,7 @@ public class AirplaneController : MonoBehaviour
                 // Use keyboard arrows for pitch and roll
                 Pitch = Input.GetAxis("Vertical");
                 Roll = Input.GetAxis("Horizontal");
+                Yaw = Input.GetAxis("Yaw");
 
                 // Space to toggle thrust
                 if (Input.GetKeyDown(KeyCode.Space))
